@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alberto Junior — Web Developer</title>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#0d1117; --bg-alt:#0a0e14; --card:#161b22; --border:#242c37;
+  --text:#e6edf3; --muted:#8b949e;
+  --primary:#f9532d; --primary-dim:#c93f20;
+  --cursor:#58e6c9;
+  --shadow: 0 20px 50px -15px rgba(0,0,0,.6);
+}
+.light{
+  --bg:#fcfcfd; --bg-alt:#f4f5f6; --card:#ffffff; --border:#e2e8f0;
+  --text:#1e293b; --muted:#64748b;
+  --shadow: 0 20px 50px -15px rgba(30,41,59,.15);
+}
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);transition:background .4s ease,color .4s ease;overflow-x:hidden;}
+.container{max-width:1180px;margin:0 auto;padding:0 6%;}
+h1,h2,h3{font-family:'Outfit',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+a{color:inherit;}
+::selection{background:var(--primary);color:#fff;}
+
+/* NAV */
+header{position:sticky;top:0;z-index:200;background:color-mix(in srgb, var(--bg) 85%, transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+.page-header{display:flex;justify-content:space-between;align-items:center;height:76px;}
+.logo{font-size:1.4rem;font-weight:800;}
+.logo span{color:var(--primary);}
+nav ul{display:flex;gap:.25rem;list-style:none;align-items:center;}
+nav a{text-decoration:none;font-size:.95rem;font-weight:500;padding:.5rem .9rem;border-radius:6px;color:var(--muted);transition:.25s;}
+nav a::before{content:"";}
+nav a:hover, nav a.active{color:var(--text);background:var(--card);}
+.eyebrow-num{color:var(--primary);font-size:.75em;margin-right:2px;}
+.nav-right{display:flex;align-items:center;gap:1.1rem;}
+.mode{cursor:pointer;display:flex;}
+.mode input{display:none;}
+.mode i{font-size:1.3rem;color:var(--muted);transition:.25s;}
+.mode i:hover{color:var(--primary);}
+.menu,#click{display:none;}
+
+/* HERO */
+.hero{min-height:calc(100vh - 76px);display:flex;align-items:center;padding:3.5rem 0;}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:4rem;align-items:center;width:100%;}
+.tag-row{display:flex;align-items:center;gap:.6rem;margin-bottom:1.2rem;}
+.tag-row .dot{width:8px;height:8px;border-radius:50%;background:var(--cursor);box-shadow:0 0 10px var(--cursor);}
+.tag-row span{font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+.hero h1{font-size:3.6rem;font-weight:800;line-height:1.08;margin-bottom:1.2rem;}
+.hero h1 .accent{color:var(--primary);}
+.hero p.lead{font-size:1.08rem;line-height:1.7;color:var(--muted);max-width:520px;margin-bottom:2.2rem;}
+.action-btns{display:flex;gap:1rem;margin-bottom:2.6rem;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.7rem;font-size:1rem;font-weight:600;border-radius:8px;text-decoration:none;transition:.25s;cursor:pointer;border:2px solid transparent;font-family:'Inter',sans-serif;}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 8px 20px rgba(249,83,45,.3);}
+.btn-primary:hover{background:var(--primary-dim);transform:translateY(-3px);}
+.btn-secondary{background:transparent;border-color:var(--border);color:var(--text);}
+.btn-secondary:hover{border-color:var(--primary);color:var(--primary);transform:translateY(-3px);}
+.social{display:flex;gap:.9rem;}
+.social a{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid var(--border);text-decoration:none;color:var(--muted);font-size:1.25rem;transition:.3s;}
+.social a:hover{color:#fff;background:var(--primary);border-color:var(--primary);transform:translateY(-4px);box-shadow:0 0 22px rgba(249,83,45,.5);}
+
+/* TERMINAL SIGNATURE ELEMENT */
+.terminal-wrap{position:relative;}
+.terminal{background:#0a0e14;border-radius:12px;border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;font-family:'JetBrains Mono',monospace;}
+.term-bar{display:flex;align-items:center;gap:.4rem;padding:.7rem 1rem;background:#11161d;border-bottom:1px solid var(--border);}
+.term-bar .dot2{width:11px;height:11px;border-radius:50%;}
+.term-bar .r{background:#ff5f56;} .term-bar .y{background:#ffbd2e;} .term-bar .g{background:#27c93f;}
+.term-title{margin-left:auto;font-size:.75rem;color:#6b7280;}
+.term-body{padding:1.6rem 1.5rem;font-size:.92rem;line-height:1.85;color:#c9d1d9;min-height:290px;}
+.term-body .ln{color:#6b7280;display:inline-block;width:1.4rem;user-select:none;}
+.kw{color:#ff7b72;} .prop{color:#79c0ff;} .str{color:#a5d6ff;} .fn{color:#d2a8ff;} .com{color:#8b949e;}
+.caret{display:inline-block;width:8px;height:1.1em;background:var(--cursor);vertical-align:middle;animation:blink 1s step-end infinite;}
+@keyframes blink{50%{opacity:0;}}
+.orbit-photo{position:absolute;right:-18px;bottom:-40px;width:118px;height:118px;border-radius:50%;overflow:hidden;border:4px solid var(--bg);box-shadow:var(--shadow);animation:float 6s ease-in-out infinite;}
+.orbit-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+
+/* SECTION HEADERS */
+.section{padding:6.5rem 0;border-top:1px solid var(--border);}
+.sec-eyebrow{display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem;}
+.sec-eyebrow .bracket{color:var(--primary);font-weight:600;}
+.sec-eyebrow span{font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.sec-title{font-size:2.4rem;font-weight:700;margin-bottom:3rem;}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:4rem;align-items:start;}
+.about-grid p{color:var(--muted);line-height:1.85;font-size:1.05rem;margin-bottom:1.2rem;}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2rem;}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.3rem 1rem;text-align:center;}
+.stat .num{font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:800;color:var(--primary);}
+.stat .lbl{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:.2rem;}
+
+/* SKILLS */
+.skills-term{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2rem;box-shadow:var(--shadow);}
+.skills-term .prompt{font-family:'JetBrains Mono',monospace;color:var(--muted);font-size:.9rem;margin-bottom:1.4rem;}
+.skills-term .prompt .p1{color:var(--cursor);}
+.skill-group{margin-bottom:1.5rem;}
+.skill-group:last-child{margin-bottom:0;}
+.skill-group-label{font-size:.82rem;color:var(--primary);margin-bottom:.7rem;letter-spacing:.02em;}
+.skill-tags{display:flex;flex-wrap:wrap;gap:.7rem;}
+.skill-tags span{font-family:'JetBrains Mono',monospace;font-size:.85rem;padding:.5rem .9rem;border-radius:6px;background:var(--bg-alt);border:1px solid var(--border);color:var(--text);transition:.25s;}
+.skill-tags span:hover{border-color:var(--primary);color:var(--primary);transform:translateY(-2px);}
+
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.6rem;}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.7rem;transition:.3s;position:relative;overflow:hidden;}
+.proj-card:hover{transform:translateY(-6px);border-color:var(--primary);box-shadow:var(--shadow);}
+.proj-card .idx{font-family:'JetBrains Mono',monospace;color:var(--primary);font-size:.8rem;}
+.proj-card h4{font-size:1.25rem;margin:.6rem 0 .6rem;}
+.proj-card p{color:var(--muted);font-size:.92rem;line-height:1.6;margin-bottom:1rem;}
+.proj-card .stack{display:flex;gap:.5rem;flex-wrap:wrap;}
+.proj-card .stack span{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);border:1px solid var(--border);padding:.2rem .55rem;border-radius:4px;}
+
+/* CONTACT */
+.contact-box{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:3rem;box-shadow:var(--shadow);}
+.contact-box h3{font-size:1.9rem;margin-bottom:.8rem;}
+.contact-box p{color:var(--muted);line-height:1.7;margin-bottom:1.6rem;}
+.contact-form input, .contact-form textarea{width:100%;padding:.85rem 1rem;margin-bottom:1rem;border-radius:8px;border:1px solid var(--border);background:var(--bg-alt);color:var(--text);font-family:'Inter',sans-serif;font-size:.95rem;}
+.contact-form input:focus, .contact-form textarea:focus{outline:none;border-color:var(--primary);}
+.contact-form textarea{resize:vertical;min-height:100px;}
+
+/* 3D PLAYGROUND */
+.scene-wrap{position:relative;width:100%;height:420px;border-radius:14px;border:1px solid var(--border);background:radial-gradient(circle at 50% 40%, var(--card) 0%, var(--bg-alt) 100%);box-shadow:var(--shadow);overflow:hidden;cursor:grab;}
+.scene-wrap:active{cursor:grabbing;}
+#scene3d{width:100%;height:100%;display:block;touch-action:none;}
+.scene-hint{position:absolute;bottom:14px;left:18px;font-size:.75rem;color:var(--muted);letter-spacing:.03em;pointer-events:none;opacity:.8;max-width:80%;}
+@media screen and (max-width:600px){.scene-wrap{height:320px;}}
+
+/* WebGL / reduced-motion fallback — shown only if 3D can't run */
+.scene-fallback{cursor:default;}
+.scene-fallback::before{
+  content:"";
+  position:absolute;top:50%;left:50%;width:140px;height:140px;
+  margin:-70px 0 0 -70px;border-radius:50%;
+  border:2px solid var(--primary);opacity:.5;
+  animation:pulseFallback 2.4s ease-in-out infinite;
+}
+.scene-fallback::after{
+  content:"";
+  position:absolute;top:50%;left:50%;width:80px;height:80px;
+  margin:-40px 0 0 -40px;border-radius:50%;
+  background:var(--primary);opacity:.15;
+}
+@keyframes pulseFallback{
+  0%,100%{transform:scale(.85);opacity:.5;}
+  50%{transform:scale(1.05);opacity:.15;}
+}
+
+footer{border-top:1px solid var(--border);padding:2.2rem 0;text-align:center;color:var(--muted);font-size:.85rem;}
+footer span{color:var(--primary);}
+
+@media screen and (max-width:900px){
+  .hero-grid, .about-grid, .contact-box{grid-template-columns:1fr;}
+  .hero h1{font-size:2.6rem;}
+  .terminal-wrap{margin-top:2rem;}
+  .orbit-photo{display:none;}
+  nav{position:absolute;top:76px;left:-100%;width:100%;background:var(--bg);border-bottom:1px solid var(--border);transition:left .35s ease;}
+  nav ul{flex-direction:column;padding:1.5rem 6%;align-items:flex-start;}
+  #click:checked ~ nav{left:0;}
+  .menu{display:block;font-size:1.6rem;cursor:pointer;}
+  .stat-row{grid-template-columns:1fr 1fr;}
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important;animation-iteration-count:1 !important;transition-duration:0.001ms !important;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container page-header">
+    <div class="logo"><a href="#">Alberto<span>.</span></a></div>
+    <input type="checkbox" id="click">
+    <label for="click" class="menu"><i class='bx bx-menu'></i></label>
+    <nav>
+      <ul>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Portfolio</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <label class="mode">
+        <input type="checkbox" id="darkModeToggle">
+        <i class='bx bxs-sun'></i>
+      </label>
+    </div>
+  </div>
+</header>
+
+<section class="hero container" id="home">
+  <div class="hero-grid">
+    <div class="detail">
+      <div class="tag-row"><span class="dot"></span><span class="mono">available for freelance work</span></div>
+      <h1>Hi, I'm <span class="accent">Alberto</span> Junior —<br>I build software end to end.</h1>
+      <p class="lead">Software developer working across the stack — from interfaces to the databases underneath them. I help local and global clients ship products people enjoy using and systems that hold up under real load.</p>
+      <div class="action-btns">
+        <a href="#contact" class="btn btn-primary"><i class='bx bx-envelope'></i> Hire Me</a>
+        <a href="Alberto_Junior_CV.pdf" download="Alberto_Junior_CV.pdf" class="btn btn-secondary"><i class='bx bx-download'></i> Download CV</a>
+      </div>
+      <div class="social">
+        <a href="https://www.linkedin.com/in/YOUR_LINKEDIN_USERNAME" aria-label="LinkedIn"><i class='bx bxl-linkedin'></i></a>
+        <a href="https://www.instagram.com/alberbull" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+        <a href="https://github.com/YOUR_GITHUB_USERNAME" aria-label="GitHub"><i class='bx bxl-github'></i></a>
+        <a href="https://www.youtube.com/@YOUR_YOUTUBE_USERNAME" aria-label="YouTube"><i class='bx bxl-youtube'></i></a>
+      </div>
+    </div>
+    <div class="terminal-wrap">
+      <div class="terminal">
+        <div class="term-bar">
+          <span class="dot2 r"></span><span class="dot2 y"></span><span class="dot2 g"></span>
+          <span class="term-title">alberto.dev — zsh</span>
+        </div>
+        <div class="term-body" id="termBody"></div>
+      </div>
+      <div class="orbit-photo">
+        <img src="images/Alby.jpeg" alt="Alberto Junior">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section container" id="playground" style="border-top:1px solid var(--border);">
+  <div class="sec-eyebrow"><span class="bracket mono">00 /</span><span>Playground</span></div>
+  <h2 class="sec-title">A little interactive something.</h2>
+  <div class="scene-wrap">
+    <canvas id="scene3d"></canvas>
+    <div class="scene-hint mono">drag to rotate · scroll to zoom · hover a dot to explore</div>
+  </div>
+</section>
+
+<section class="section container" id="about">
+  <div class="sec-eyebrow"><span class="bracket mono">01 /</span><span>About</span></div>
+  <h2 class="sec-title">A little about my work.</h2>
+  <div class="about-grid">
+    <div>
+      <p>I'm a software developer who works comfortably on both sides of the screen — interfaces people click on, and the databases and logic quietly holding everything up underneath.</p>
+      <p>On the web I build with JavaScript and React. Below that, I reach for Python and Django for application logic, C++ and object-oriented VB.NET when a project calls for it, and SQLAlchemy, SQLite, or PostgreSQL to model the data properly.</p>
+      <div class="stat-row">
+        <div class="stat"><div class="num">40+</div><div class="lbl">Projects Shipped</div></div>
+        <div class="stat"><div class="num">3+</div><div class="lbl">Years Experience</div></div>
+        <div class="stat"><div class="num">100%</div><div class="lbl">Client Satisfaction</div></div>
+      </div>
+    </div>
+    <div>
+      <p>My process starts with understanding the problem, not the tech stack. From there I move fast: design the data model, build the logic, wire up the interface, test on real devices, ship, iterate.</p>
+      <p>I've worked across small business sites, dashboards, desktop software, and full product builds — always with an eye for performance and correctness, not just how it looks on launch day.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section container" id="skills">
+  <div class="sec-eyebrow"><span class="bracket mono">02 /</span><span>Skills</span></div>
+  <h2 class="sec-title">What I work with.</h2>
+  <div class="skills-term">
+    <div class="prompt"><span class="p1">alberto@dev</span> ~ % ls skills/ -R</div>
+
+    <div class="skill-group">
+      <div class="skill-group-label mono">frontend/</div>
+      <div class="skill-tags">
+        <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>React</span><span>Tailwind</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-label mono">backend/</div>
+      <div class="skill-tags">
+        <span>Python</span><span>Django</span><span>C++</span><span>VB.NET</span><span>OOP</span><span>Node.js</span><span>REST APIs</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-label mono">data/</div>
+      <div class="skill-tags">
+        <span>PostgreSQL</span><span>SQLAlchemy</span><span>SQLite</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-label mono">tools/</div>
+      <div class="skill-tags">
+        <span>Git</span><span>Figma</span><span>Responsive Design</span><span>Accessibility</span><span>Performance</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section container" id="projects">
+  <div class="sec-eyebrow"><span class="bracket mono">03 /</span><span>Portfolio</span></div>
+  <h2 class="sec-title">Selected work, across the stack.</h2>
+  <div class="proj-grid">
+    <div class="proj-card">
+      <div class="idx mono">// 01</div>
+      <h4>Storefront Rebuild</h4>
+      <p>Rebuilt a slow legacy storefront into a fast, mobile-first shop with a 60% drop in load time.</p>
+      <div class="stack"><span>React</span><span>Node</span><span>Stripe</span></div>
+    </div>
+    <div class="proj-card">
+      <div class="idx mono">// 02</div>
+      <h4>Client Dashboard</h4>
+      <p>Internal analytics dashboard with real-time charts and role-based access for a growing SaaS team.</p>
+      <div class="stack"><span>Vue</span><span>Chart.js</span><span>Express</span></div>
+    </div>
+    <div class="proj-card">
+      <div class="idx mono">// 03</div>
+      <h4>Agency Landing Site</h4>
+      <p>Motion-driven marketing site for a creative agency, built for speed and easy content updates.</p>
+      <div class="stack"><span>HTML</span><span>GSAP</span><span>Netlify CMS</span></div>
+    </div>
+    <div class="proj-card">
+      <div class="idx mono">// 04</div>
+      <h4>Inventory Management System</h4>
+      <p>Desktop + web hybrid system for tracking stock across warehouses, with role-based reporting.</p>
+      <div class="stack"><span>Django</span><span>SQLAlchemy</span><span>PostgreSQL</span></div>
+    </div>
+    <div class="proj-card">
+      <div class="idx mono">// 05</div>
+      <h4>Records Desktop App</h4>
+      <p>Lightweight desktop application for managing student records, built with an object-oriented design.</p>
+      <div class="stack"><span>VB.NET</span><span>OOP</span><span>SQLite</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section container" id="contact">
+  <div class="sec-eyebrow"><span class="bracket mono">04 /</span><span>Contact</span></div>
+  <h2 class="sec-title">Let's build something.</h2>
+  <div class="contact-box">
+    <div>
+      <h3>Got a project in mind?</h3>
+      <p>Send a quick note about what you're building and I'll get back to you within a day or two.</p>
+      <div class="social">
+        <a href="https://www.linkedin.com/in/YOUR_LINKEDIN_USERNAME" aria-label="LinkedIn"><i class='bx bxl-linkedin'></i></a>
+        <a href="https://www.instagram.com/alberbull" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+        <a href="https://github.com/YOUR_GITHUB_USERNAME" aria-label="GitHub"><i class='bx bxl-github'></i></a>
+        <a href="https://www.youtube.com/@YOUR_YOUTUBE_USERNAME" aria-label="YouTube"><i class='bx bxl-youtube'></i></a>
+      </div>
+    </div>
+    <form class="contact-form" onsubmit="return false;">
+      <input type="text" placeholder="Your name">
+      <input type="email" placeholder="Your email">
+      <textarea placeholder="Tell me about your project"></textarea>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  © 2026 Alberto Junior<span>.</span> Built with care, one commit at a time.
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+/* dark/light mode */
+const toggle = document.getElementById('darkModeToggle');
+const icon = document.querySelector('.mode i');
+const isDark = localStorage.getItem('theme') !== 'light';
+function applyTheme(dark){
+  document.body.classList.toggle('light', !dark);
+  icon.classList.toggle('bxs-sun', dark);
+  icon.classList.toggle('bxs-moon', !dark);
+  toggle.checked = dark;
+}
+applyTheme(isDark);
+toggle.addEventListener('change', () => {
+  applyTheme(toggle.checked);
+  localStorage.setItem('theme', toggle.checked ? 'dark' : 'light');
+});
+
+/* terminal typing effect */
+const lines = [
+  {t:'<span class="com"># hero.py</span>'},
+  {t:'<span class="kw">class</span> <span class="fn">Developer</span>:'},
+  {t:'&nbsp;&nbsp;<span class="prop">name</span> = <span class="str">"Alberto Junior"</span>'},
+  {t:'&nbsp;&nbsp;<span class="prop">role</span> = <span class="str">"Software Developer"</span>'},
+  {t:'&nbsp;&nbsp;<span class="prop">frontend</span> = [<span class="str">"JS"</span>, <span class="str">"React"</span>, <span class="str">"CSS"</span>]'},
+  {t:'&nbsp;&nbsp;<span class="prop">backend</span> = [<span class="str">"Python"</span>, <span class="str">"Django"</span>, <span class="str">"C++"</span>]'},
+  {t:'&nbsp;&nbsp;<span class="prop">data</span> = [<span class="str">"PostgreSQL"</span>, <span class="str">"SQLAlchemy"</span>, <span class="str">"SQLite"</span>]'},
+  {t:'&nbsp;&nbsp;<span class="prop">available</span> = <span class="kw">True</span>'},
+  {t:''},
+  {t:'<span class="fn">Developer</span>().<span class="fn">build</span>(<span class="str">"something solid"</span>)'},
+];
+const body = document.getElementById('termBody');
+let li = 0;
+function typeLine(){
+  if(li >= lines.length){
+    body.innerHTML += '<span class="caret"></span>';
+    return;
+  }
+  const row = document.createElement('div');
+  row.innerHTML = '<span class="ln">'+String(li+1).padStart(2,'0')+'</span>' + lines[li].t;
+  body.appendChild(row);
+  li++;
+  setTimeout(typeLine, 160);
+}
+typeLine();
+
+/* ---- 3D playground: draggable wireframe node graph ---- */
+function supportsWebGL(){
+  try{
+    const c = document.createElement('canvas');
+    return !!(window.WebGLRenderingContext && (c.getContext('webgl') || c.getContext('experimental-webgl')));
+  }catch(e){
+    return false;
+  }
+}
+
+function showSceneFallback(msg){
+  const wrap = document.querySelector('.scene-wrap');
+  const canvas = document.getElementById('scene3d');
+  const hint = document.querySelector('.scene-hint');
+  if(canvas) canvas.style.display = 'none';
+  if(wrap) wrap.classList.add('scene-fallback');
+  if(hint) hint.textContent = msg || '3D preview isn\u2019t available on this device.';
+}
+
+(function loadThree(){
+  if(!supportsWebGL()){
+    showSceneFallback();
+    return;
+  }
+  const s = document.createElement('script');
+  s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+  s.onload = initScene;
+  s.onerror = () => showSceneFallback('Couldn\u2019t load the 3D library — check your connection.');
+  document.head.appendChild(s);
+})();
+
+function initScene(){
+  const canvas = document.getElementById('scene3d');
+  const wrap = document.querySelector('.scene-wrap');
+  if(!canvas || !window.THREE) { showSceneFallback(); return; }
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+  const isSmall = window.innerWidth < 700;
+  const hasGSAP = !!window.gsap;
+  const hasScrollTrigger = hasGSAP && !!window.ScrollTrigger;
+  if(hasScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+  let scene, camera, renderer;
+  try{
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(50, wrap.clientWidth/wrap.clientHeight, 0.1, 100);
+    camera.position.z = 7;
+    renderer = new THREE.WebGLRenderer({canvas, antialias: !isSmall, alpha:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isSmall ? 1.5 : 2));
+    renderer.setSize(wrap.clientWidth, wrap.clientHeight);
+  }catch(e){
+    showSceneFallback('Your browser couldn\u2019t start the 3D scene.');
+    return;
+  }
+
+  const group = new THREE.Group();
+  scene.add(group);
+
+  /* icosahedron wireframe core */
+  const coreGeo = new THREE.IcosahedronGeometry(2, 1);
+  const coreMat = new THREE.MeshBasicMaterial({color:0xf9532d, wireframe:true, transparent:true, opacity:0.85});
+  const core = new THREE.Mesh(coreGeo, coreMat);
+  group.add(core);
+
+  const innerGeo = new THREE.IcosahedronGeometry(1.4, 0);
+  const innerMat = new THREE.MeshBasicMaterial({color:0x58e6c9, wireframe:true, transparent:true, opacity:0.5});
+  const inner = new THREE.Mesh(innerGeo, innerMat);
+  group.add(inner);
+
+  /* orbiting node points, glow-like via sprites made of circles */
+  const nodeCount = 14;
+  const nodesGroup = new THREE.Group();
+  const nodeGeo = new THREE.SphereGeometry(0.055, 12, 12);
+  const nodeMat = new THREE.MeshBasicMaterial({color:0xffffff});
+  const radius = 3.1;
+  for(let i=0;i<nodeCount;i++){
+    const phi = Math.acos(-1 + (2*i)/nodeCount);
+    const theta = Math.sqrt(nodeCount * Math.PI) * phi;
+    const node = new THREE.Mesh(nodeGeo, nodeMat.clone());
+    node.position.setFromSphericalCoords(radius, phi, theta);
+    node.material.color.set(i % 3 === 0 ? 0xf9532d : 0x8b949e);
+    nodesGroup.add(node);
+  }
+  group.add(nodesGroup);
+
+  /* thin connecting lines from center to a few nodes for a "network" feel */
+  const lineMat = new THREE.LineBasicMaterial({color:0xf9532d, transparent:true, opacity:0.25});
+  nodesGroup.children.forEach((n, i) => {
+    if(i % 2 === 0){
+      const points = [new THREE.Vector3(0,0,0), n.position.clone()];
+      const geo = new THREE.BufferGeometry().setFromPoints(points);
+      group.add(new THREE.Line(geo, lineMat));
+    }
+  });
+
+  /* ---- ambient floating shapes: subtle background depth, purely decorative ---- */
+  const floatShapes = [];
+  const floatCount = isSmall ? 2 : 5;
+  const floatGeos = [
+    new THREE.OctahedronGeometry(0.22, 0),
+    new THREE.TetrahedronGeometry(0.24, 0),
+    new THREE.TorusGeometry(0.16, 0.045, 6, 12),
+  ];
+  for(let i=0;i<floatCount;i++){
+    const geo = floatGeos[i % floatGeos.length];
+    const mat = new THREE.MeshBasicMaterial({
+      color: i % 2 === 0 ? 0xf9532d : 0x58e6c9,
+      wireframe:true, transparent:true, opacity:0.35
+    });
+    const mesh = new THREE.Mesh(geo, mat);
+    const a = (i / floatCount) * Math.PI * 2 + 0.6;
+    const r = 4.6 + Math.random() * 1.2;
+    mesh.position.set(Math.cos(a) * r, (Math.random() - 0.5) * 3, Math.sin(a) * r);
+    mesh.userData.floatOffset = Math.random() * Math.PI * 2;
+    mesh.userData.floatSpeed = 0.4 + Math.random() * 0.4;
+    scene.add(mesh); // scene, not group — drifts independently of the drag rotation
+    floatShapes.push(mesh);
+  }
+
+  /* ---- interactive project hotspots ---- */
+  // TODO: swap these six placeholders for your real project titles/links.
+  // `onSelect` runs on click — right now it scrolls to the Portfolio section;
+  // point it at a modal, a URL, or anything else once you wire up real projects.
+  const projectHotspots = [
+    {title:'Project One'}, {title:'Project Two'}, {title:'Project Three'},
+    {title:'Project Four'}, {title:'Project Five'}, {title:'Project Six'},
+  ];
+  const hotspotGroup = new THREE.Group();
+  const hotspotGeo = new THREE.SphereGeometry(0.1, 16, 16);
+  const ringGeo = new THREE.TorusGeometry(0.17, 0.012, 8, 24);
+  const hotspotRadius = 3.6;
+  projectHotspots.forEach((proj, i) => {
+    const angle = (i / projectHotspots.length) * Math.PI * 2;
+    const y = Math.sin(angle * 1.5) * 1.1;
+    const pos = new THREE.Vector3(Math.cos(angle) * hotspotRadius, y, Math.sin(angle) * hotspotRadius);
+
+    const mat = new THREE.MeshBasicMaterial({color:0xf9532d, transparent:true, opacity:0.9});
+    const dot = new THREE.Mesh(hotspotGeo, mat);
+    dot.position.copy(pos);
+    dot.userData = {...proj, baseScale:1, isHotspot:true};
+    hotspotGroup.add(dot);
+
+    const ringMat = new THREE.MeshBasicMaterial({color:0xf9532d, transparent:true, opacity:0.4, side:THREE.DoubleSide});
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.position.copy(pos);
+    ring.userData = {...proj, isHotspot:true, isRing:true, parentDot:dot};
+    hotspotGroup.add(ring);
+  });
+  group.add(hotspotGroup);
+  const hotspotDots = hotspotGroup.children.filter(c => !c.userData.isRing);
+  const hotspotRings = hotspotGroup.children.filter(c => c.userData.isRing);
+
+  /* interaction: drag to rotate, scroll to zoom, gentle auto-rotate when idle */
+  let isDown = false, lastX = 0, lastY = 0, velX = 0.0025, velY = 0.0012;
+  let idleTimer = null;
+  let downX = 0, downY = 0, dragMoved = false;
+
+  function pointerDown(e){
+    isDown = true;
+    const p = e.touches ? e.touches[0] : e;
+    lastX = p.clientX; lastY = p.clientY;
+    downX = p.clientX; downY = p.clientY;
+    dragMoved = false;
+    clearTimeout(idleTimer);
+  }
+  function pointerMove(e){
+    if(!isDown) return;
+    const p = e.touches ? e.touches[0] : e;
+    const dx = p.clientX - lastX, dy = p.clientY - lastY;
+    if(Math.abs(p.clientX - downX) > 4 || Math.abs(p.clientY - downY) > 4) dragMoved = true;
+    group.rotation.y += dx * 0.005;
+    group.rotation.x += dy * 0.005;
+    velX = dx * 0.0006; velY = dy * 0.0006;
+    lastX = p.clientX; lastY = p.clientY;
+  }
+  function pointerUp(e){
+    isDown = false;
+    idleTimer = setTimeout(()=>{ velX = 0.0025; velY = 0.0012; }, 1200);
+    if(!dragMoved){
+      const p = e.changedTouches ? e.changedTouches[0] : e;
+      handleClick(p.clientX, p.clientY);
+    }
+  }
+  canvas.addEventListener('mousedown', pointerDown);
+  window.addEventListener('mousemove', pointerMove);
+  window.addEventListener('mouseup', pointerUp);
+  canvas.addEventListener('touchstart', pointerDown, {passive:true});
+  canvas.addEventListener('touchmove', pointerMove, {passive:true});
+  canvas.addEventListener('touchend', pointerUp);
+
+  /* raycasting: hover glow + click on project hotspots */
+  const raycaster = new THREE.Raycaster();
+  const mouseNDC = new THREE.Vector2();
+  let hoveredDot = null;
+
+  function updateNDC(clientX, clientY){
+    const rect = canvas.getBoundingClientRect();
+    mouseNDC.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+    mouseNDC.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+  }
+
+  function handleClick(clientX, clientY){
+    updateNDC(clientX, clientY);
+    raycaster.setFromCamera(mouseNDC, camera);
+    const hits = raycaster.intersectObjects(hotspotDots);
+    if(hits.length){
+      const proj = hits[0].object.userData;
+      // TODO: replace this with real navigation for `proj` (modal, link, etc.)
+      const target = document.getElementById('projects');
+      if(target) target.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth'});
+    }
+  }
+
+  if(!isTouch){
+    canvas.addEventListener('mousemove', (e) => {
+      if(isDown) return;
+      updateNDC(e.clientX, e.clientY);
+      raycaster.setFromCamera(mouseNDC, camera);
+      const hits = raycaster.intersectObjects(hotspotDots);
+      const hit = hits[0] ? hits[0].object : null;
+      if(hit !== hoveredDot){
+        if(hoveredDot && hasGSAP) gsap.to(hoveredDot.scale, {x:1,y:1,z:1, duration:0.3});
+        hoveredDot = hit;
+        canvas.style.cursor = hit ? 'pointer' : 'grab';
+        if(hit && hasGSAP) gsap.to(hit.scale, {x:1.6,y:1.6,z:1.6, duration:0.3, ease:'back.out(2)'});
+      }
+    });
+  }
+
+  /* mouse-move parallax — group gently tilts toward the cursor when idle */
+  let parallaxX = 0, parallaxY = 0;
+  if(!isTouch && !reduceMotion){
+    wrap.addEventListener('mousemove', (e) => {
+      if(isDown) return;
+      const rect = wrap.getBoundingClientRect();
+      parallaxX = ((e.clientX - rect.left) / rect.width - 0.5) * 0.5;
+      parallaxY = ((e.clientY - rect.top) / rect.height - 0.5) * 0.3;
+    });
+    wrap.addEventListener('mouseleave', () => { parallaxX = 0; parallaxY = 0; });
+  }
+
+  canvas.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    camera.position.z = Math.min(11, Math.max(4, camera.position.z + e.deltaY * 0.003));
+  }, {passive:false});
+
+  window.addEventListener('resize', () => {
+    camera.aspect = wrap.clientWidth / wrap.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(wrap.clientWidth, wrap.clientHeight);
+  });
+
+  /* scroll reactivity: the whole playground gently recedes as you scroll past it */
+  if(hasScrollTrigger && !reduceMotion){
+    gsap.to(wrap, {
+      opacity: 0.4,
+      scale: 0.94,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: wrap,
+        start: 'top top+=120',
+        end: 'bottom top+=80',
+        scrub: 0.6
+      }
+    });
+  }
+
+  /* entrance animation on first load */
+  if(hasGSAP && !reduceMotion){
+    gsap.from(group.scale, {x:0, y:0, z:0, duration:1.1, ease:'back.out(1.6)'});
+    gsap.from(group.rotation, {y: Math.PI * 0.6, duration:1.3, ease:'power3.out'});
+    gsap.from(wrap, {opacity:0, y:24, duration:0.9, ease:'power2.out'});
+  }
+
+  const clock = new THREE.Clock();
+
+  function renderFrame(){
+    inner.rotation.y -= 0.004;
+    core.rotation.y += 0.001;
+    const t = clock.getElapsedTime();
+    floatShapes.forEach(m => {
+      m.position.y += Math.sin(t * m.userData.floatSpeed + m.userData.floatOffset) * 0.002;
+      m.rotation.x += 0.003;
+      m.rotation.y += 0.004;
+    });
+    hotspotRings.forEach(r => {
+      r.rotation.z += 0.01;
+      const pulse = 1 + Math.sin(t * 1.5 + r.position.x) * 0.08;
+      r.scale.set(pulse, pulse, pulse);
+    });
+    renderer.render(scene, camera);
+  }
+
+  if(reduceMotion){
+    /* one static, settled frame — no auto-rotate, no parallax, no continuous RAF loop */
+    renderFrame();
+  } else {
+    function animate(){
+      requestAnimationFrame(animate);
+      if(!isDown){
+        group.rotation.y += velX + parallaxX * 0.02;
+        group.rotation.x += velY * 0.4 + parallaxY * 0.02;
+      }
+      renderFrame();
+    }
+    animate();
+  }
+}
+</script>
+
+</body>
+</html>
